@@ -7,7 +7,7 @@ public class Launcher {
     public static final String VERSION = "Alpha v0.5.5";
 
     public static void main(String... args) {
-        Game game = new Game("Cards Against Humanity ~~ " + VERSION, 800, 600);
+        Game game = new Game("Cards Against Humanity ~~ " + VERSION, 1900, 950);
 
         game.start();
     }

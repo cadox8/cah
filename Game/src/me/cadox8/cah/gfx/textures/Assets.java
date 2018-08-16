@@ -7,7 +7,8 @@ import java.awt.image.BufferedImage;
 
 public class Assets {
 
-    public static final int WIDTH = 32, HEIGHT = 32;
+    public static final int SIZE = 235;
+    private static final int width = 239, height = 239;
     private static Sprites sprites;
 
     // Cards
@@ -21,7 +22,7 @@ public class Assets {
     }
 
     private static BufferedImage getImage(int x, int y) {
-        return getImage(x, y, WIDTH, HEIGHT);
+        return getImage(x, y, width, height);
     }
 
     private static BufferedImage getImage(int x, int y, int width, int height) {
