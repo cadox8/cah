@@ -7,6 +7,7 @@ import me.cadox8.cah.ui.UIImageButton;
 import me.cadox8.cah.ui.UIManager;
 
 import java.awt.*;
+import java.io.IOException;
 
 public class MenuState extends State {
 
@@ -22,6 +23,14 @@ public class MenuState extends State {
 
         uiManager.addObject(new UIImageButton(150, 450, 200, 100, GUI.play, () -> {
             API.getMouseManager().setUIManager(null);
+
+            try {
+                API.getClient().connect();
+            } catch (IOException e) {
+                e.printStackTrace();
+                System.exit(-1);
+            }
+
             setState(API.getGame().gameState);
         }));
 

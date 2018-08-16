@@ -3,6 +3,7 @@ package me.cadox8.cah.game;
 import lombok.Getter;
 import lombok.Setter;
 import me.cadox8.cah.api.CAHAPI;
+import me.cadox8.cah.client.Client;
 import me.cadox8.cah.display.Display;
 import me.cadox8.cah.gfx.fonts.Fonts;
 import me.cadox8.cah.gfx.textures.Assets;
@@ -27,6 +28,9 @@ public class Game implements Runnable {
     @Getter @Setter private boolean running = false;
     private Thread thread;
 
+    // Client
+    @Getter private final Client client;
+
     // Graphics
     private BufferStrategy bs;
     private Graphics g;
@@ -36,7 +40,7 @@ public class Game implements Runnable {
     public State menuState;
 
     // Input
-    @Getter private MouseManager mouseManager;
+    @Getter private final MouseManager mouseManager;
 
     public Game(String title, int width, int height) {
         this.width = width;
@@ -44,6 +48,8 @@ public class Game implements Runnable {
         this.title = title;
 
         mouseManager = new MouseManager();
+
+        client = new Client();
     }
 
     private void init() {
