@@ -18,7 +18,11 @@ public class UIImage extends UIObject {
 
     @Override
     public void render(Graphics g) {
-        g.drawImage(image, (int) x, (int) y, width, height, null);
+        if (hovering) {
+            g.drawImage(image, (int) x, (int) y, width, height, null);
+        } else {
+            g.drawImage(image, (int) x, (int) y, width + 20, height + 20, null);
+        }
     }
 
     @Override

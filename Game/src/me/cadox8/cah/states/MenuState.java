@@ -19,8 +19,6 @@ public class MenuState extends State {
         uiManager = new UIManager(API);
         API.getMouseManager().setUIManager(uiManager);
 
-        //uiManager.addObject(new UIImage(0, 0, 235, 235, Assets.white));
-
         uiManager.addObject(new UIImageButton(150, 450, 200, 100, GUI.play, () -> {
             API.getMouseManager().setUIManager(null);
 
