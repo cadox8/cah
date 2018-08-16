@@ -10,10 +10,11 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.Arrays;
 
 public class ClientThread extends Thread {
 
-    private int id;
+    private final int id;
     @Getter @Setter private boolean dead;
 
     private String clientName;
@@ -44,6 +45,8 @@ public class ClientThread extends Thread {
 
             synchronized (this) {
                 new ClientConnectEvent(this).onEvent();//+1;
+
+                os.writeObject(new Message("connected"));
             }
 
             while (true) {
@@ -66,9 +69,7 @@ public class ClientThread extends Thread {
                 threads[id] = null;
             }
             synchronized (this) {
-                for (int i = 0; i < maxClientsCount; i++) {
-                    if (threads[i] == this) threads[i] = null;
-                }
+                for (int i = 0; i < maxClientsCount; i++) if (threads[i] == this) threads[i] = null;
             }
             is.close();
             os.flush();
@@ -87,28 +88,36 @@ public class ClientThread extends Thread {
             try {
                 os.flush();
                 os.close();
-            } catch (IOException ed) { }
+            } catch (IOException ed) {
+                ed.printStackTrace();
+            }
         }
     }
 
+    private void checkStart() {
+        if (getRealClients() < 3) return;
 
-    private int getRealClients() {
-        int i = 0;
-
-        for (Thread t : threads) if (t != null) i++;
-        return i;
+        sendMessageAll("start");
     }
 
-    public void sendMessageAll(String action, Object... args) throws IOException {
+    private int getRealClients() {
+        return Arrays.asList(threads).stream().filter(t -> t != null).toArray().length;
+    }
+
+    public void sendMessageAll(String action, Object... args) {
         for (int i = 0; i < maxClientsCount; i++) {
             if (threads[i] != null && threads[i].clientName != null) sendMessage(i, action, args);
         }
     }
 
-    public void sendMessage(int id, String action, Object... args) throws IOException {
-        Message msg = new Message(action, args);
-        threads[id].os.writeObject(msg);
-        System.out.println("-> " + id + ": " + msg.buildMsg());
+    public void sendMessage(int id, String action, Object... args) {
+        try {
+            Message msg = new Message(action, args);
+            threads[id].os.writeObject(msg);
+            System.out.println("-> " + id + ": " + msg.buildMsg());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public int getClientID() {
