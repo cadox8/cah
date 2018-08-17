@@ -1,18 +1,16 @@
 {
-  "cards": [
+  "cards":[
     "Barack Obama",
     "Txeroki",
     "Esperanza Aguirre",
     "Correrse en una piscina llena de lágrimas de niños"
   ],
-
-  "hole": [
-    "Bebo para olvidar %s%",
-    "%s%: bueno hasta la última gota",
+  "hole":[
+    "Bebo para olvidar _____",
+    "_____: bueno hasta la última gota",
     "¿Que es ese sonido?"
   ],
-
-  "holes": [
-
+  "holes":[
+    "Test"
   ]
 }
