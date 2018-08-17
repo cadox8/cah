@@ -3,6 +3,7 @@ package me.cadox8.cah.data;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import me.cadox8.cah.Launcher;
+import me.cadox8.cah.gfx.textures.Assets;
 import me.cadox8.commons.Card;
 import me.cadox8.commons.CardData;
 
@@ -34,13 +35,24 @@ public class DataManager {
 
     public HashMap<String, List<Card>> loadCards() {
         try {
-            return gson.fromJson(new BufferedReader(new InputStreamReader(new URL("https://cadox8.github.io/cah/data/cards.json").openStream())).readLine(), CardData.class).buildCards();
+            final BufferedReader br = new BufferedReader(new InputStreamReader(new URL("https://cadox8.github.io/cah/data/cards.json").openStream()));
+            final StringBuilder sb = new StringBuilder();
+            String line;
+
+            while ((line = br.readLine()) != null) sb.append(line);
+
+            HashMap<String, List<Card>> cards = gson.fromJson(sb.toString(), CardData.class).buildCards();
+
+            cards.get("cards").forEach(c -> c.setBase(Assets.white));
+            cards.get("hole").forEach(c -> c.setBase(Assets.black));
+            cards.get("holes").forEach(c -> c.setBase(Assets.black));
+
+            return cards;
         } catch (IOException e) {
             System.exit(-1);
             return new HashMap<>();
         }
     }
-
     public UserData load() {
         try {
             return gson.fromJson(new FileReader(f), UserData.class);

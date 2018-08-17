@@ -11,7 +11,7 @@ public class Launcher {
     public static final String GAME_FILE = "C:" + File.separator + "CAH" + File.separator;
 
     public static void main(String... args) {
-        Game game = new Game("Cards Against Humanity ~~ " + VERSION, 1900, 950);
+        Game game = new Game("Cards Against Humanity ~~ " + VERSION, 1600, 900);
 
         DataManager.checkFile();
 

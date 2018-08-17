@@ -14,10 +14,10 @@ public class Client {
     @Getter private ChatAccess access;
     @Getter @Setter private Message serverInfo = null;
 
-    public void connect(String... args) throws IOException {
-        String server = "localhost";
-        int port = 7639;
+    @Getter @Setter private String server = "localhost";
+    @Getter @Setter private int port = 7639;
 
+    public void connect(String... args) throws IOException {
         if (args.length > 0 && args[0] != null) server = args[0];
         if (args.length > 1 && args[1] != null) port = Integer.valueOf(args[1]);
 

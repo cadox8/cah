@@ -12,13 +12,14 @@ public class Assets {
     private static Sprites sprites;
 
     // Cards
-    public static BufferedImage white, black;
+    public static BufferedImage white, black, rating;
 
     public static void init() {
         sprites = new Sprites(Utils.loadImage("/textures/assets/basic.png"));
 
         white = getImage(0, 0);
         black = getImage(1, 0);
+        rating = getImage(0, 1);
     }
 
     private static BufferedImage getImage(int x, int y) {

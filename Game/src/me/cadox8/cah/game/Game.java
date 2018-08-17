@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import me.cadox8.cah.api.CAHAPI;
 import me.cadox8.cah.client.Client;
+import me.cadox8.cah.data.DataManager;
 import me.cadox8.cah.display.Display;
 import me.cadox8.cah.gfx.fonts.Fonts;
 import me.cadox8.cah.gfx.textures.Assets;
@@ -31,6 +32,9 @@ public class Game implements Runnable {
     // Client
     @Getter private final Client client;
 
+    // Data Manager
+    @Getter private final DataManager dataManager;
+
     // Graphics
     private BufferStrategy bs;
     private Graphics g;
@@ -48,6 +52,8 @@ public class Game implements Runnable {
         this.title = title;
 
         mouseManager = new MouseManager();
+
+        dataManager = new DataManager();
 
         client = new Client();
     }
